@@ -1,85 +1,48 @@
 # bot.py
-import os
+from configparser import ConfigParser
 
-from votes import Votes, MessageValidator, MessageValidationException
+from discord.ext.commands import Bot, CommandNotFound
+
+from AdminBot import AdminBot
+from PompSettings import PompSettings
+from VoteBot import VoteBot
+from votes import Votes
 import discord
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # Setting up some globals
 intents = discord.Intents.default()
 intents.members = True
-client = discord.Client(intents=intents)
-votes = Votes()
+bot = Bot(intents=intents, command_prefix="!")
+
 
 # These will be set in the startup function
 standing_channelid = False
-myguild = False
+myguild = None
 
-# Convenience methode to get a member object from a user object
-# A "member" is a subclass of a "user" but is in a guild and for
-# example, has a nick name which we use for display purposes.
-def get_member_for_user(user):
-    for member in myguild.members:
-        if member == user:
-            return member
-    raise Exception(f"Insane. Could not find user {user.name} in my server!")
+settings = PompSettings(".env", bot)
+votes = Votes()
 
-
-@client.event
+@bot.event
 async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    print(f'{bot.user} has connected to Discord!')
+    print("Connected to server " + settings.get_guild().name)
 
-    global standing_channelid
-    all_channels = client.get_all_channels()
-    for channel in all_channels:
-        if channel.name == os.getenv("VOTING_CHANNEL"):
-            standing_channelid = channel.id
-            print(f"Publishing standings to channel " + channel.name)
-            break
-    if not standing_channelid:
-        raise Exception("Could not find channel for channel name " + os.getenv("VOTING_CHANNEL"))
-
-    global myguild
-    myguild = client.guilds[0]
-    print("Connected to server " + myguild.name)
-
-
-@client.event
+@bot.event
 async def on_member_join(member):
     await member.create_dm()
     await member.dm_channel.send(
         f'Hi {member.name}, welkom op de kleine-goden discord server!'
     )
 
-
-async def publish_standings():
-    channel = client.get_channel(standing_channelid)
-    await channel.send(votes.format_votes(votes.get_current_votes()))
-
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
+# Catchall to prevent CommandNotFound errors on every message
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, CommandNotFound):
         return
+    raise error
 
-    voter = get_member_for_user(message.author)
-
-    ms = MessageValidator(message, voter)
-    if ms.is_voting_message():
-        try:
-            votee = ms.get_votee_from_message()
-            # Private messages are outside of the context of a server, so we get a "user" and not a "member"
-            if type(votee) == discord.user.User:
-                votee = get_member_for_user(votee)
-
-            await message.reply(f"Ik noteer uw stem op {votee.display_name}")
-            votes.vote_for(voter, votee)
-            await publish_standings()
-
-        except MessageValidationException as e:
-            await message.reply(str(e))
-
-client.run(os.getenv('DISCORD_TOKEN'))
+bot.add_cog(AdminBot(bot, votes, settings))
+bot.add_cog(VoteBot(bot, votes, settings))
+bot.run(settings.get_value('DISCORD_TOKEN'))
 
