@@ -80,14 +80,21 @@ class Votes:
     @staticmethod
     def get_formatted_votes(votes_count, votes_set):
         sorted_votes = dict(sorted(votes_count.items(), key=lambda item: item[1]))
-        returnstring = ">>> "
-        for votee, votes in sorted_votes.items():
-            if votes > 1:
-                returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
-            elif votes == 1:
-                returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
-        returnstring += f"\n"
-        for voter, vote in votes_set.items():
-            votee = vote.get_last_votee()
-            returnstring += f"**{voter.display_name}** heeft gestemd op *{votee.display_name}*\n"
+        if sorted_votes:
+            returnstring = ">>> "
+            for votee, votes in sorted_votes.items():
+                if votes > 1:
+                    returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
+                elif votes == 1:
+                    returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
+            returnstring += f"\n"
+            for voter, vote in votes_set.items():
+                votee = vote.get_last_votee()
+                if votee:
+                    returnstring += f"**{voter.display_name}** heeft gestemd op *{votee.display_name}*\n"
+                else:
+                    returnstring += f"**{voter.display_name}** heeft niet gestemd\n"
+        else:
+            returnstring = f"Niemand heeft nog gestemd"
         return returnstring
+
