@@ -19,13 +19,16 @@ class Votes:
     def __init__(self):
         self.votes = {}
 #         @todo: set to false
-        self.enabled = True
+        self.__enabled = True
 
-    def stop_voting(self):
-        self.enabled = False
+    def close_voting(self):
+        self.__enabled = False
 
-    def start_voting(self):
-        self.enabled = True
+    def open_voting(self):
+        self.__enabled = True
+
+    def is_open(self):
+        return self.__enabled
 
     def clean(self):
         self.votes = {}

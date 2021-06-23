@@ -1,11 +1,11 @@
 from configparser import ConfigParser
 
 import discord
-from flask import ctx
 
 
 class PompNotInitializedError(Exception):
     pass
+
 
 class PompSettings:
     def __init__(self, settingfile, client:discord.Client):
@@ -24,6 +24,9 @@ class PompSettings:
                 return self.config.get("PsychoPomp", setting)
         else:
             raise ValueError(f"Could not find setting {setting}")
+
+    def get_all_settings(self):
+        return self.config.items("PsychoPomp")
 
     def get_vote_channel(self):
         if not self.__vote_channel:

@@ -65,6 +65,9 @@ class MessageValidator:
         elif self.message.mentions[0] == self.settings.get_bot_member():
             raise MessageValidationException("Oh nee, nee, alstublieft niet!")
 
+        if not self.votes.is_open():
+            raise MessageValidationException("Het spijt mij, maar de almachtige heeft besloten dat er nu niet gestemd kan worden!")
+
         if self.message.guild and not self.settings.get_flag("PUBLIC_VOTING"):
             raise MessageValidationException(
                 "Ik kan uw stem niet aannemen, ik verzoek u vriendelijk om uw stemmen direct aan mij te sturen in een privé bericht")
