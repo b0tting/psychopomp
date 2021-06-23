@@ -28,4 +28,24 @@ An example game round:
 - When the timer reaches 0, voting is once again disabled
 
 
+## Installation
+- Install the requirments (pip install -r requirements.txt)
+- Copy the example .env.example to .env and change the parameters
+  - Find the token by opening https://discord.com/developers/, adding a new application, opening the Bot menu and generating a token (below the username). 
+  - Authorize the bot by opening the OAuth2 menu, dashing Bot and Administrator and opening the redirect URL
+- Start the python script (or systemd file)
+
+## Example systemd file
+```json
+[Unit]
+Description=Psychopomp discord bot
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/psychopomp/psychopomp.py
+WorkingDirectory=/usr/local/bin/psychopomp
+Restart=on-failure
+RestartSec=5s 
+StandardOutput=append:/var/log/psychopomp.log
+StandardError=append:/var/log/psychopomp.log
+```
 

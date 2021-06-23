@@ -30,7 +30,7 @@ class PompSettings:
 
     def get_vote_channel(self, ignore_cache=False):
         if not self.__vote_channel or ignore_cache:
-            for channel in self.client.get_all_channels():
+            for channel in self.__guild.text_channels:
                 if channel.name.lower() == self.get_value("VOTING_CHANNEL").lower():
                     self.__vote_channel = channel
                     break
