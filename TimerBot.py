@@ -49,7 +49,8 @@ class TimerBot(commands.Cog):
             self.bot.dispatch("timer_start")
             await ctx.send("Timer was started. Don't forget !votes open to enable voting")
             channel = self.settings.get_vote_channel()
-            await channel.send(f":star: Het begint! Het doet mij deugd u te melden dat er nog {startminutes} minuten over zijn!")
+            await channel.send(f":star: Het begint! Het doet mij deugd u te melden dat er nog {startminutes} minuten "
+                               f"over zijn!")
 
         elif command == "pause":
             if not self.timer or self.timer.done:
@@ -79,9 +80,3 @@ class TimerBot(commands.Cog):
             self.bot.dispatch("timer_done")
             yell = f"**Hora est!** De tijd is op!"
         self.bot.dispatch("yell", yell)
-
-
-
-
-
-

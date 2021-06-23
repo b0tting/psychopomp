@@ -1,8 +1,6 @@
 import re
-
 import discord
 from discord.ext import commands
-
 from PompSettings import PompSettings
 from votes import Votes
 
@@ -129,5 +127,3 @@ class VoteBot(commands.Cog):
 
             except MessageValidationException as e:
                 await message.reply(str(e))
-
-

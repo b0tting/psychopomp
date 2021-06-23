@@ -46,7 +46,8 @@ class PompSettings:
                     self.__guild = server
                     break
             if not self.__guild:
-                raise ValueError(f"Could not find the 'ACTIVE_SERVER' {current_selected} in the list of authorized servers")
+                raise ValueError(f"Could not find the 'ACTIVE_SERVER' {current_selected} in the list of authorized "
+                                 f"servers")
         return self.__guild
 
     def get_flag(self, flag):

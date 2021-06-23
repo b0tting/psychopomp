@@ -102,4 +102,3 @@ class Votes:
         else:
             returnstring = f"Niemand heeft nog gestemd"
         return returnstring
-

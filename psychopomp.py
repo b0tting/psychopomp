@@ -1,8 +1,4 @@
-# bot.py
-from configparser import ConfigParser
-
 from discord.ext.commands import Bot, CommandNotFound
-
 from AdminBot import AdminBot
 from PompSettings import PompSettings
 from TimerBot import TimerBot
@@ -17,7 +13,6 @@ intents = discord.Intents.default()
 intents.members = True
 bot = Bot(intents=intents, command_prefix="!")
 
-
 # These will be set in the startup function
 standing_channelid = False
 myguild = None
@@ -25,10 +20,12 @@ myguild = None
 settings = PompSettings(".env", bot)
 votes = Votes()
 
+
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
     print("Connected to server " + settings.get_guild().name)
+
 
 @bot.event
 async def on_member_join(member):
@@ -36,6 +33,7 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welkom op de kleine-goden discord server!'
     )
+
 
 # Catchall to prevent CommandNotFound errors on every message
 @bot.event
@@ -49,4 +47,3 @@ bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
 bot.add_cog(YellBot(bot, votes, settings))
 bot.run(settings.get_value('DISCORD_TOKEN'))
-

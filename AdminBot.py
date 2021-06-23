@@ -1,6 +1,4 @@
-import discord
 from discord.ext import commands
-
 from PompSettings import PompSettings
 from votes import Votes
 
@@ -24,7 +22,6 @@ class AdminBot(commands.Cog):
             result += f"- Timer has {timerbot.minutesleft} minutes left (imprecise!)\n"
         result += "```\n"
         await ctx.send(result)
-
 
     async def send_settings(self, ctx):
         result = "```\n"

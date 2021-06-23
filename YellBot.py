@@ -1,8 +1,5 @@
-import discord
 from discord.ext import commands
-
 from PompSettings import PompSettings
-from votes import Votes
 
 
 class YellBot(commands.Cog):
