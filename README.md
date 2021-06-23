@@ -28,7 +28,4 @@ An example game round:
 - When the timer reaches 0, voting is once again disabled
 
 
-todo: 
-- !votes standing bij leeg is niet mooi
-
 
