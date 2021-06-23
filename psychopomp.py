@@ -44,8 +44,8 @@ async def on_command_error(ctx, error):
         return
     raise error
 
-bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(VoteBot(bot, votes, settings))
+bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
 bot.add_cog(YellBot(bot, votes, settings))
 bot.run(settings.get_value('DISCORD_TOKEN'))

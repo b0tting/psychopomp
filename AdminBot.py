@@ -38,13 +38,16 @@ class AdminBot(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(administrator=True)
     async def settings(self, ctx, command="show", commandparameter="", commandvalue=""):
-        accepted = ["show", "set"]
+        accepted = ["show", "set", "servers"]
         if command not in accepted:
             await ctx.send(f'Settings {command} was unknown. I only know the following commands: {", ".join(accepted)}')
             return
 
         if command == "show":
             await self.send_settings(ctx)
+        elif command == "servers":
+            servers = ", ".join([guild.name for guild in self.bot.guilds])
+            await ctx.send(f"Servers authorized for: {servers}")
         elif command == "set":
             if not commandparameter or not commandvalue:
                 await ctx.send(

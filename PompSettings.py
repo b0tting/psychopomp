@@ -31,16 +31,23 @@ class PompSettings:
     def get_vote_channel(self, ignore_cache=False):
         if not self.__vote_channel or ignore_cache:
             for channel in self.client.get_all_channels():
-                if channel.name == self.get_value("VOTING_CHANNEL"):
+                if channel.name.lower() == self.get_value("VOTING_CHANNEL").lower():
                     self.__vote_channel = channel
-                    print(f"Publishing standings to channel " + channel.name)
                     break
             if not self.__vote_channel:
                 raise Exception("Could not find channel for channel name " + self.get_value("VOTING_CHANNEL"))
         return self.__vote_channel
 
-    def get_guild(self):
-        return self.client.guilds[int(self.__get_property("server_number"))]
+    def get_guild(self, ignore_cache=False):
+        if not self.__guild or ignore_cache:
+            current_selected = self.__get_property("active_server")
+            for server in self.client.guilds:
+                if server.name.lower() == current_selected.lower():
+                    self.__guild = server
+                    break
+            if not self.__guild:
+                raise ValueError(f"Could not find the 'ACTIVE_SERVER' {current_selected} in the list of authorized servers")
+        return self.__guild
 
     def get_flag(self, flag):
         return self.__get_property(flag, boolean=True)
@@ -49,6 +56,8 @@ class PompSettings:
         self.config.set("PsychoPomp", parameter, value)
         if parameter.lower() == "voting_channel":
             self.get_vote_channel(ignore_cache=True)
+        elif parameter.lower() == "active_server":
+            self.get_guild(ignore_cache=True)
 
     def get_value(self, value):
         return self.__get_property(value)
