@@ -40,14 +40,14 @@ class PompSettings:
         return self.__vote_channel
 
     def get_guild(self):
-        return self.client.guilds[1]
+        return self.client.guilds[int(self.__get_property("server_number"))]
 
     def get_flag(self, flag):
         return self.__get_property(flag, boolean=True)
 
     def set_property(self, parameter, value):
         self.config.set("PsychoPomp", parameter, value)
-        if parameter == "VOTING_CHANNEL":
+        if parameter.lower() == "voting_channel":
             self.get_vote_channel(ignore_cache=True)
 
     def get_value(self, value):
