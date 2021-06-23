@@ -36,7 +36,7 @@ class TimerBot(commands.Cog):
         except ValueError:
             pass
         if command not in accepted:
-            await ctx.send(f'Votes {command} was unknown. I only know of {".".join(accepted)}')
+            await ctx.send(f'Votes {command} was unknown. I only know the following commands: {", ".join(accepted)}')
             return
 
         if command == "new":
@@ -46,15 +46,18 @@ class TimerBot(commands.Cog):
                     self.timer.cancel()
             startminutes = self.minutesleft
             self.set_timer()
+            self.bot.dispatch("timer_start")
             await ctx.send("Timer was started. Don't forget !votes open to enable voting")
             channel = self.settings.get_vote_channel()
-            await channel.send(f"Het begint! Het doet mij deugd u te melden dat er nog {startminutes} minuten over zijn!")
+            await channel.send(f":star: Het begint! Het doet mij deugd u te melden dat er nog {startminutes} minuten over zijn!")
+
         elif command == "pause":
             if not self.timer or self.timer.done:
                 await ctx.send(f"There was no running timer.")
             else:
                 await ctx.send(f"Timer was paused at {self.minutesleft} minutes")
                 self.timer.cancel()
+
         elif command == "continue":
             if self.timer and not self.timer.done:
                 await ctx.send(f"Timer is already running, either start a new one or pause it first")
@@ -66,15 +69,16 @@ class TimerBot(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reminder(self):
-        channel = self.settings.get_vote_channel()
         if self.minutesleft > 0:
             if self.minutesleft == 1:
-                await channel.send(f"Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!")
+                yell = f"Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!"
             else:
-                await channel.send(f"Het doet mij deugd u te melden dat er nog {self.minutesleft} minuten over zijn!")
+                yell = f"Het doet mij deugd u te melden dat er nog {self.minutesleft} minuten over zijn!"
             self.set_timer()
         else:
-            await channel.send(f"Hora est! De tijd is op!")
+            self.bot.dispatch("timer_done")
+            yell = f"**Hora est!** De tijd is op!"
+        self.bot.dispatch("yell", yell)
 
 
 

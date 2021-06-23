@@ -88,12 +88,11 @@ class VoteBot(commands.Cog):
         self.settings = settings
 
     async def publish_standings(self):
-        channel = self.settings.get_vote_channel()
         if self.votes.get_current_votes():
             result = Votes.get_formatted_standing(self.votes.get_current_votes())
         else:
             result = "*Op dit moment zijn er geen stemmen!*"
-        await channel.send(result)
+        self.bot.dispatch("yell", result)
 
     def get_member_for_user(self, user):
         for member in self.settings.get_guild().members:
@@ -130,3 +129,5 @@ class VoteBot(commands.Cog):
 
             except MessageValidationException as e:
                 await message.reply(str(e))
+
+

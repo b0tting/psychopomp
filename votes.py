@@ -18,8 +18,7 @@ class Vote:
 class Votes:
     def __init__(self):
         self.votes = {}
-#         @todo: set to false
-        self.__enabled = True
+        self.__enabled = False
 
     def close_voting(self):
         self.__enabled = False
@@ -70,13 +69,16 @@ class Votes:
     def get_formatted_standing(votes):
         # Neat trick!
         sorted_votes = dict(sorted(votes.items(), key=lambda item: item[1]))
-        returnstring = "**Ik presenteer u uw keuzes!**\n"
-        returnstring += ">>> "
-        for votee, votes in sorted_votes.items():
-            if votes > 1:
-                returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
-            elif votes == 1:
-                returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
+        if sorted_votes:
+            returnstring = "**Ik presenteer u uw keuzes!**\n"
+            returnstring += ">>> "
+            for votee, votes in sorted_votes.items():
+                if votes > 1:
+                    returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
+                elif votes == 1:
+                    returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
+        else:
+            returnstring = "**Niemand heeft nog een stem uitgebracht**"
         return returnstring
 
     # Format a votes dict of votee:number of votes into a readable list

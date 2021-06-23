@@ -7,6 +7,7 @@ from AdminBot import AdminBot
 from PompSettings import PompSettings
 from TimerBot import TimerBot
 from VoteBot import VoteBot
+from YellBot import YellBot
 from votes import Votes
 import discord
 
@@ -46,5 +47,6 @@ async def on_command_error(ctx, error):
 bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(VoteBot(bot, votes, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
+bot.add_cog(YellBot(bot, votes, settings))
 bot.run(settings.get_value('DISCORD_TOKEN'))
 

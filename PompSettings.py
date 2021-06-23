@@ -8,7 +8,7 @@ class PompNotInitializedError(Exception):
 
 
 class PompSettings:
-    def __init__(self, settingfile, client:discord.Client):
+    def __init__(self, settingfile, client: discord.Client):
         self.config = ConfigParser()
         self.client = client
         self.config.read(settingfile)
@@ -28,8 +28,8 @@ class PompSettings:
     def get_all_settings(self):
         return self.config.items("PsychoPomp")
 
-    def get_vote_channel(self):
-        if not self.__vote_channel:
+    def get_vote_channel(self, ignore_cache=False):
+        if not self.__vote_channel or ignore_cache:
             for channel in self.client.get_all_channels():
                 if channel.name == self.get_value("VOTING_CHANNEL"):
                     self.__vote_channel = channel
@@ -40,13 +40,21 @@ class PompSettings:
         return self.__vote_channel
 
     def get_guild(self):
-        return self.client.guilds[0]
+        return self.client.guilds[1]
 
     def get_flag(self, flag):
         return self.__get_property(flag, boolean=True)
+
+    def set_property(self, parameter, value):
+        self.config.set("PsychoPomp", parameter, value)
+        if parameter == "VOTING_CHANNEL":
+            self.get_vote_channel(ignore_cache=True)
 
     def get_value(self, value):
         return self.__get_property(value)
 
     def get_bot_member(self):
         return self.client.user
+
+    def has_setting(self, setting):
+        return self.config.has_option("PsychoPomp", setting)
