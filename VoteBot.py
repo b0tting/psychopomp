@@ -42,25 +42,40 @@ class MessageValidator:
                 break
         return votee
 
+    def get_member_for_index(self, index):
+        votee = None
+        if len(self.guild.members) >= index:
+            votee = self.guild.members[index - 1]
+        return votee
+
     def get_votee_from_message(self):
         votee = None
         if len(self.message.mentions) == 0:
+
             if "@" in self.message.content:
                 result = re.search('@([\\w]+)', self.message.content).group(1)
                 votee = self.get_member_for_flat_name(result)
-                if not votee:
-                    raise MessageValidationException("Oh, hoogster aller machten, het spijt mij, ik herken de naam niet die u gebruikt na uw apestaart teken.")
-            else:
-                raise MessageValidationException("Oh, hoogster aller machten, ik herinner u graag dat u stemmen kunt uitbrengen "
-                                    "door te verwijzen naar de naam van uw stem met voorgaand een @. U zou "
-                                    "bijvoorbeeld @Psychopomp kunnen gebruiken, hoewel Pavi mij direct zou "
-                                    "neerbliksemen al zou ik die stem aannemen van u.")
+            elif result := re.search('([0-9]+)', self.message.content):
+                index = int(result.group(1))
+                votee = self.get_member_for_index(index)
+
+            if not votee:
+                if not self.message.guild:
+                    allmembers = self.guild.members
+                    names = [f"{allmembers.index(member) + 1}) {member.display_name}\n" for member in allmembers]
+                    raise MessageValidationException(
+                        f"Oh, hoogste aller machten, het spijt mij, ik herken de naam niet. Maar wellicht kunt u uw keuze duiden met een cijfer? Bijvoorbeeld 'ik stem 1'?\n{''.join(names)}")
+                else:
+                    raise MessageValidationException("Oh, hoogster aller machten, het spijt mij, ik herken de naam niet die u gebruikt. Vergeet u niet om uw stem vooraf te laten gaan door een @-teken? Bijvoorbeeld @Pavi?")
         elif len(self.message.mentions) > 1:
             raise MessageValidationException("Oh, hoogster aller machten, hoe gul u ook bent, ik herinner u graag dat u slecht op "
                                 "één persoon kunt stemmen")
-        elif self.message.mentions[0] == self.sender and not self.settings.get_flag("CAN_VOTE_SELF"):
+        else:
+            votee = self.message.mentions[0]
+
+        if votee == self.sender and not self.settings.get_flag("CAN_VOTE_SELF"):
             raise MessageValidationException("Het spijt mij. De machten hebben bepaald dat u niet op zichzelf kunt stemmen")
-        elif self.message.mentions[0] == self.settings.get_bot_member():
+        elif votee == self.settings.get_bot_member():
             raise MessageValidationException("Oh nee, nee, alstublieft niet!")
 
         if not self.votes.is_open():
