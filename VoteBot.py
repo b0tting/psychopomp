@@ -51,11 +51,12 @@ class MessageValidator:
     def get_votee_from_message(self):
         votee = None
         if len(self.message.mentions) == 0:
-
+            # Walrus operator not in 3.7. Walrus sad.
+            result = re.search('([0-9]+)', self.message.content)
             if "@" in self.message.content:
                 result = re.search('@([\\w]+)', self.message.content).group(1)
                 votee = self.get_member_for_flat_name(result)
-            elif result := re.search('([0-9]+)', self.message.content):
+            elif result:
                 index = int(result.group(1))
                 votee = self.get_member_for_index(index)
 
