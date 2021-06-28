@@ -3,14 +3,25 @@ A simple Discord bot handling voting for a game.
 
 Players vote for each other using either a server channel or by directly contacting your bot. On every vote change the bot publishes the current standing of the votes in a given text channel. 
 
-To activate the vote, you @-mention another user in any text channel with the activating expression from the .env file. 
+To activate the vote, you call out a vote to @-mention any user in any text channel, or message the bot directly effectively hiding your vote for the other players. 
 
+The bot publishes standing changes to a preconfigured channel. It also has a timer, publishing to the same channel.     
+
+ ### Player commands
+ 
 | Commands | Effect | 
 | --- | --- |
-|!status| Gives a small overview of the state of the game: timer (if any), voting if enable and current standing | 
+| 'stem' | Using the expression as configured in the .env, the player can vote for other players using the @ notation. If in a private message, the bot will try to find the mentioned player and if not found, offer a menu where you can use number based vote selection. | 
+| 'verwijder'..'stem' | The last vote this player gave is removed and standings are updated | 
+
+
+ ### Server Admin commands
+| Commands | Effect | 
+| --- | --- |
+|!status| Gives a small overview of the state of the game: timer (if any) and minutes left and weither voting is enabled. By default, voting is closed until a timer starts | 
 |!settings| List the current settings | 
 |!settings set \<parameter\> \<value\> | Change a setting, for example, '!settings set voting_channel pantheon'. Note that if you want to set a value that has a space in it you need to surround it with double quotes |
-|!timer \<minutes\>| Starts a timer for X minutes. If there was a timer, it will be replaced by the new one. | 
+|!timer \<minutes\>| Starts a timer for X minutes. If there was a timer, it will be replaced by the new one. This opens voting. If the timer ends, voting is closed. | 
 |!timer pause| Pause the current timer |
 |!timer continue| ...and continue the current timer. No effect if there is no timer or if it is still running | 
 |!votes clean| Remove all the current votes | 
@@ -19,13 +30,15 @@ To activate the vote, you @-mention another user in any text channel with the ac
 |!votes open | Enable voting. By default, voting is _disabled_ | 
 |!votes close | Disable voting |
 
-These commands are only useable by server admins. I suggest creating a seperate channel where you can cozy down with the bot. 
+These commands are only useable by server admins. I suggest creating a separate channel where you can cozy down with the bot. 
 
+## Gameplay
 An example game round:
 - In the zero state, the timer is disabled and voting is not allowed. You take the time to explain players how the game works. 
 - Using the "!timer 10" command you set a timer for 10 minutes. Voting is now allowed.
 - The timer will call out how much time is left 
-- When the timer reaches 0, voting is once again disabled
+- Players call out votes in text channels. Alice votes for Bob, Bob votes for Bob, Charles votes for Aliex.   
+- When the timer reaches 0, voting is once again disabled. A final standing is published showing Bob has 2 votes and Alice has 1 (but not who voted for them) 
 
 
 ## Installation
@@ -33,7 +46,7 @@ An example game round:
 - Copy the example .env.example to .env and change the parameters
   - Find the token by opening https://discord.com/developers/, adding a new application, opening the Bot menu and generating a token (below the username). 
   - Authorize the bot by opening the OAuth2 menu, dashing Bot and Administrator and opening the redirect URL
-- Start the psychopmp.py python script (or use the systemd file)
+- Start the psychopomp.py python script (or use the systemd file)
 
 ## Example systemd file
 ```json
