@@ -1,5 +1,6 @@
 from discord.ext.commands import Bot, CommandNotFound
 from AdminBot import AdminBot
+from IntroBot import IntroBot
 from PompSettings import PompSettings
 from TimerBot import TimerBot
 from VoteBot import VoteBot
@@ -46,4 +47,5 @@ bot.add_cog(VoteBot(bot, votes, settings))
 bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
 bot.add_cog(YellBot(bot, votes, settings))
+bot.add_cog(IntroBot(bot, settings))
 bot.run(settings.get_value('DISCORD_TOKEN'))

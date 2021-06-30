@@ -1,3 +1,5 @@
+import os
+
 from discord.ext import commands
 from PompSettings import PompSettings
 from votes import Votes
@@ -8,6 +10,35 @@ class AdminBot(commands.Cog):
         self.bot = bot
         self.votes = votes
         self.settings = settings
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
+    async def intro(self, ctx, command="list", commandparameter=""):
+        if command == "list":
+            arr = os.listdir('./mp3')
+            result = "On the MP3 menu I have:\n"
+            for ar in arr:
+                result += f"- {ar}\n"
+            await ctx.send(result)
+        elif command == "play":
+            if not commandparameter.endswith(".mp3"):
+                commandparameter += ".mp3"
+            self.bot.dispatch("intro", commandparameter)
+        elif command == "pause":
+            introbot = self.bot.get_cog('IntroBot')
+            await introbot.pause()
+        elif command == "resume":
+            introbot = self.bot.get_cog('IntroBot')
+            await introbot.resume()
+
+    async def send_settings(self, ctx):
+        result = "```\n"
+        flags = self.settings.get_all_settings()
+        for flag, value in flags:
+            result += f"{flag.ljust(30)}{value}\n"
+        result += "```"
+        await ctx.send(result)
 
     @commands.command()
     @commands.guild_only()

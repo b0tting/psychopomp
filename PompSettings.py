@@ -14,6 +14,7 @@ class PompSettings:
         self.config.read(settingfile)
         self.initialized = False
         self.__vote_channel = None
+        self.__voice_channel = None
         self.__guild = None
 
     def __get_property(self, setting, boolean=False):
@@ -27,6 +28,16 @@ class PompSettings:
 
     def get_all_settings(self):
         return self.config.items("PsychoPomp")
+
+    def get_voice_channel(self, ignore_cache=False):
+        if not self.__voice_channel or ignore_cache:
+            for channel in self.__guild.voice_channels:
+                if channel.name.lower() == self.get_value("VOICE_CHANNEL").lower():
+                    self.__voice_channel = channel
+                    break
+            if not self.__voice_channel:
+                raise Exception("Could not find channel for channel name " + self.get_value("VOTING_CHANNEL"))
+        return self.__voice_channel
 
     def get_vote_channel(self, ignore_cache=False):
         if not self.__vote_channel or ignore_cache:

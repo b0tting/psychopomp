@@ -29,6 +29,11 @@ The bot publishes standing changes to a preconfigured channel. It also has a tim
 |!votes show | Shows you an overview of how everyone voted  | 
 |!votes open | Enable voting. By default, voting is _disabled_ | 
 |!votes close | Disable voting |
+|!intro list | Show all MP3 files | 
+|!intro play <mp3 file> | Play an MP3 on the preconfigured voice channel |
+|!intro pause | Pause playing an MP3 |
+|!intro resume | Resume playing a paused MP3 |
+
 
 These commands are only useable by server admins. I suggest creating a separate channel where you can cozy down with the bot. 
 
@@ -43,9 +48,12 @@ An example game round:
 
 ## Installation
 - Install the requirements (pip install -r requirements.txt)
+
 - Copy the example .env.example to .env and change the parameters
   - Find the token by opening https://discord.com/developers/, adding a new application, opening the Bot menu and generating a token (below the username). 
   - Authorize the bot by opening the OAuth2 menu, dashing Bot and Administrator and opening the redirect URL
+- Put the FFMPEG executeable in a location and change the parameter in the .env file
+- Put some MP3s in the MP3 directory  
 - Start the psychopomp.py python script (or use the systemd file)
 
 ## Example systemd file
