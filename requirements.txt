@@ -2,3 +2,4 @@ discord
 python-dotenv
 discord-timers
 audioread
+PyNaCl

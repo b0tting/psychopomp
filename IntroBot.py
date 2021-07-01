@@ -94,7 +94,8 @@ class IntroBot(commands.Cog):
         if voice.is_paused():
             voice.stop()
         path = os.path.join(rpgmusicpath, mp3)
-        voice.play(discord.FFmpegPCMAudio(path, executable="./ffmpeg/ffmpeg.exe"))
+        ffmpeg = self.settings.get_value("FFMPEG_LOCATION")
+        voice.play(discord.FFmpegPCMAudio(path, executable=ffmpeg))
         voice.source = discord.PCMVolumeTransformer(voice.source)
         voice.source.volume = 0.8
         with audioread.audio_open(path) as f:
