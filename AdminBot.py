@@ -32,7 +32,7 @@ class AdminBot(commands.Cog):
             !intro play <mp3 file name or number> | Play an MP3 on the preconfigured voice channel. Can overwrite an existing play 
             !intro pause | Pause playing an MP3 
             !intro resume | Resume playing a paused MP3 
-            !help | I can't tell you, I'd have to kill you if I do
+            !helpme | I can't tell you, I'd have to kill you if I do
             ```
         """
         await ctx.send(result)

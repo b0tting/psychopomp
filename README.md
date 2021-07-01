@@ -33,6 +33,7 @@ The bot publishes standing changes to a preconfigured channel. It also has a tim
 |!intro play <mp3 file name or number> | Play an MP3 on the preconfigured voice channel. Can overwrite an existing play |
 |!intro pause | Pause playing an MP3 |
 |!intro resume | Resume playing a paused MP3 |
+|!helpme | Show these options, but in discord |  
 
 
 These commands are only useable by server admins. I suggest creating a separate channel where you can cozy down with the bot. 
