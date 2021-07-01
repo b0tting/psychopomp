@@ -30,7 +30,7 @@ The bot publishes standing changes to a preconfigured channel. It also has a tim
 |!votes open | Enable voting. By default, voting is _disabled_ | 
 |!votes close | Disable voting |
 |!intro list | Show all MP3 files | 
-|!intro play <mp3 file> | Play an MP3 on the preconfigured voice channel |
+|!intro play <mp3 file name or number> | Play an MP3 on the preconfigured voice channel. Can overwrite an existing play |
 |!intro pause | Pause playing an MP3 |
 |!intro resume | Resume playing a paused MP3 |
 

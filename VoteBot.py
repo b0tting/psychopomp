@@ -6,7 +6,12 @@ from votes import Votes
 
 
 class MessageValidationException(Exception):
-    pass
+    def __init__(self, message, show_to_sender=True):
+        self.__show = show_to_sender
+        super().__init__(message)
+
+    def show_to_sender(self):
+        return self.__show
 
 
 class MessageValidator:
@@ -50,17 +55,29 @@ class MessageValidator:
 
     def get_votee_from_message(self):
         votee = None
+
+        # It could be that voting is limited to a single channel
+        if self.message.guild and \
+                self.settings.get_flag("VOTING_CHANNEL_ONLY") and \
+                self.message.channel is not self.settings.get_vote_channel():
+            raise MessageValidationException("Het spijt mij, maar stemmen in andere kanalen dan het stem kanaal is niet toegestaan", False)
+
         if len(self.message.mentions) == 0:
             # Walrus operator not in 3.7. Walrus sad.
             result = re.search('([0-9]+)', self.message.content)
+
+            # If there was an @ but no mention, lets attempt to fuzzy match
             if "@" in self.message.content:
                 result = re.search('@([\\w]+)', self.message.content).group(1)
                 votee = self.get_member_for_flat_name(result)
+            # There might also be a number somehwere in there
             elif result:
                 index = int(result.group(1))
                 votee = self.get_member_for_index(index)
 
+            # Nothing worked?
             if not votee:
+                # Private message and missing member? Show a list.
                 if not self.message.guild:
                     allmembers = self.guild.members
                     names = [f"{allmembers.index(member) + 1}) {member.display_name}\n" for member in allmembers]
@@ -129,7 +146,9 @@ class VoteBot(commands.Cog):
                 await message.reply(f"Ik heb uw stem op uw verzoek verwijderd")
                 await self.publish_standings()
             except MessageValidationException as e:
-                await message.reply(str(e))
+                if e.show_to_sender():
+                    await message.reply(str(e))
+                return
         elif ms.is_voting_message():
             try:
                 votee = ms.get_votee_from_message()
@@ -142,4 +161,8 @@ class VoteBot(commands.Cog):
                 await self.publish_standings()
 
             except MessageValidationException as e:
-                await message.reply(str(e))
+                if e.show_to_sender():
+                    await message.reply(str(e))
+                return
+
+
