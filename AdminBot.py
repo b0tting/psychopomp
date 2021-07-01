@@ -14,7 +14,7 @@ class AdminBot(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(administrator=True)
-    async def help(self, ctx):
+    async def helpme(self, ctx):
         result = """ 
         ```
             !status | Gives a small overview of the state of the game: timer (if any) and minutes left and weither voting is enabled. By default, voting is closed until a timer starts 
