@@ -16,24 +16,22 @@ class AdminBot(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def helpme(self, ctx):
         result = """ 
-        ```
-            !status | Gives a small overview of the state of the game: timer (if any) and minutes left and weither voting is enabled. By default, voting is closed until a timer starts 
-            !settings| List the current settings 
-            !settings set \<parameter\> \<value\> | Change a setting, for example, '!settings set voting_channel pantheon'. Note that if you want to set a value that has a space in it you need to surround it with double quotes 
-            !timer \<minutes\>| Starts a timer for X minutes. If there was a timer, it will be replaced by the new one. This opens voting. If the timer ends, voting is closed. 
-            !timer pause| Pause the current timer 
-            !timer continue| ...and continue the current timer. No effect if there is no timer or if it is still running 
-            !votes clean| Remove all the current votes 
-            !votes standing| Publishes the current standing in the votes channel 
-            !votes show | Shows you an overview of how everyone voted  
-            !votes open | Enable voting. By default, voting is _disabled_ 
-            !votes close | Disable voting 
-            !intro list | Show all MP3 files 
-            !intro play <mp3 file name or number> | Play an MP3 on the preconfigured voice channel. Can overwrite an existing play 
-            !intro pause | Pause playing an MP3 
-            !intro resume | Resume playing a paused MP3 
-            !helpme | I can't tell you, I'd have to kill you if I do
-            ```
+**!status** | Gives a small overview of the state of the game: timer (if any) and minutes left and weither voting is enabled. By default, voting is closed until a timer starts 
+**!settings** | List the current settings 
+**!settings set \<parameter\> \<value\>** | Change a setting, for example, '!settings set voting_channel pantheon'. Note that if you want to set a value that has a space in it you need to surround it with double quotes 
+**!timer \<minutes\>** | Starts a timer for X minutes. If there was a timer, it will be replaced by the new one. This opens voting. If the timer ends, voting is closed. 
+**!timer pause** | Pause the current timer 
+**!timer continue** | ...and continue the current timer. No effect if there is no timer or if it is still running 
+**!votes clean** | Remove all the current votes 
+**!votes standing** | Publishes the current standing in the votes channel 
+**!votes show** | Shows you an overview of how everyone voted  
+**!votes open** | Enable voting. By default, voting is _disabled_ 
+**!votes close** | Disable voting 
+**!intro list** | Show all MP3 files 
+**!intro play <mp3 file name or number>** | Play an MP3 on the preconfigured voice channel. Can overwrite an existing play 
+**!intro pause** | Pause playing an MP3 
+**!intro resume** | Resume playing a paused MP3 
+**!helpme** | I can't tell you, I'd have to kill you if I do
         """
         await ctx.send(result)
 
