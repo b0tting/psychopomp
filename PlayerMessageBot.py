@@ -16,8 +16,8 @@ class MessageValidationException(Exception):
 
 class MessageValidator:
     def __init__(self, message, sender, settings:PompSettings, votes, myguild):
-        self.message_expr = re.compile(settings.get_value("VOTE_TRIGGER"))
-        self.cancel_expr = re.compile(settings.get_value("WITHDRAW_VOTE_TRIGGER"))
+        self.message_expr = re.compile(settings.get_value("VOTE_TRIGGER"), re.IGNORECASE)
+        self.cancel_expr = re.compile(settings.get_value("WITHDRAW_VOTE_TRIGGER"), re.IGNORECASE)
         self.sender = sender
         self.message = message
         self.settings = settings
@@ -112,11 +112,12 @@ class MessageValidator:
         return votee
 
 
-class VoteBot(commands.Cog):
+class PlayerMessageBot(commands.Cog):
     def __init__(self, bot, votes, settings: PompSettings):
         self.bot = bot
         self.votes = votes
         self.settings = settings
+        self.prayer_expr = re.compile(settings.get_value("PRAYER_SOUND_TRIGGER"), re.IGNORECASE)
 
     async def publish_standings(self):
         if self.votes.get_current_votes():
@@ -138,7 +139,15 @@ class VoteBot(commands.Cog):
 
         voter = self.get_member_for_user(message.author)
 
+        # VERY inappropriately placed code. Sorry.
+        if self.settings.get_flag("PRAYER_SOUNDS_ENABLED") and \
+                self.prayer_expr.match(message.content):
+            self.bot.dispatch("intro", self.settings.get_value("PRAYER_SOUND"))
+            return
+
+        # I should keep this object instead of recreating it every message
         ms = MessageValidator(message, voter, self.settings, self.votes, self.settings.get_guild())
+
         if ms.is_remove_voting_message():
             try:
                 ms.validate_remove_vote()

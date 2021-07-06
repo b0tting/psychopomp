@@ -3,7 +3,7 @@ from AdminBot import AdminBot
 from IntroBot import IntroBot
 from PompSettings import PompSettings
 from TimerBot import TimerBot
-from VoteBot import VoteBot
+from PlayerMessageBot import PlayerMessageBot
 from YellBot import YellBot
 from votes import Votes
 import discord
@@ -43,7 +43,7 @@ async def on_command_error(ctx, error):
         return
     raise error
 
-bot.add_cog(VoteBot(bot, votes, settings))
+bot.add_cog(PlayerMessageBot(bot, votes, settings))
 bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(IntroBot(bot, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
