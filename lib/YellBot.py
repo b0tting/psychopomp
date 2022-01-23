@@ -1,5 +1,6 @@
 from discord.ext import commands
-from PompSettings import PompSettings
+
+from lib.PompSettings import PompSettings
 
 
 class YellBot(commands.Cog):

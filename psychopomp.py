@@ -1,12 +1,16 @@
+import gettext
+
 from discord.ext.commands import Bot, CommandNotFound
-from AdminBot import AdminBot
-from IntroBot import IntroBot
-from PompSettings import PompSettings
-from TimerBot import TimerBot
-from PlayerMessageBot import PlayerMessageBot
-from YellBot import YellBot
-from votes import Votes
+
 import discord
+
+from lib.AdminBot import AdminBot
+from lib.IntroBot import IntroBot
+from lib.PlayerMessageBot import PlayerMessageBot
+from lib.PompSettings import PompSettings
+from lib.TimerBot import TimerBot
+from lib.YellBot import YellBot
+from lib.votes import Votes
 
 
 # Setting up some globals
@@ -21,10 +25,13 @@ myguild = None
 settings = PompSettings(".env", bot)
 votes = Votes()
 
+# This could probably be done in a prettier way
+_ = settings.get_locale_function()
+
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
+    print(f"{bot.user} has connected to Discord!")
     print("Connected to server " + settings.get_guild().name)
 
 
@@ -32,7 +39,7 @@ async def on_ready():
 async def on_member_join(member):
     await member.create_dm()
     await member.dm_channel.send(
-        f'Hi {member.name}, welkom op de kleine-goden discord server!'
+        _("Hi %s, welkom op de kleine-goden discord server!") % member.name
     )
 
 
@@ -43,10 +50,11 @@ async def on_command_error(ctx, error):
         return
     raise error
 
+
 bot.add_cog(PlayerMessageBot(bot, votes, settings))
 bot.add_cog(AdminBot(bot, votes, settings))
 bot.add_cog(IntroBot(bot, settings))
 bot.add_cog(TimerBot(bot, votes, settings))
 bot.add_cog(YellBot(bot, votes, settings))
 
-bot.run(settings.get_value('DISCORD_TOKEN'))
+bot.run(settings.get_value("DISCORD_TOKEN"))

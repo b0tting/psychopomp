@@ -1,6 +1,7 @@
 import datetime
 from discord.ext import commands, timers
-from PompSettings import PompSettings
+
+from lib.PompSettings import PompSettings
 
 
 class TimerBot(commands.Cog):
@@ -36,21 +37,31 @@ class TimerBot(commands.Cog):
         except ValueError:
             pass
         if command not in accepted:
-            await ctx.send(f'Votes {command} was unknown. I only know the following commands: {", ".join(accepted)}')
+            await ctx.send(
+                f'Votes {command} was unknown. I only know the following commands: {", ".join(accepted)}'
+            )
             return
 
         if command == "new":
             if self.timer:
                 if not self.timer.done:
-                    await ctx.send("There was an active timer, overwriting it with a new one")
+                    await ctx.send(
+                        "There was an active timer, overwriting it with a new one"
+                    )
                     self.timer.cancel()
             startminutes = self.minutesleft
             self.set_timer()
             self.bot.dispatch("timer_start")
-            await ctx.send("Timer was started. Don't forget !votes open to enable voting")
+            await ctx.send(
+                "Timer was started. Don't forget !votes open to enable voting"
+            )
             channel = self.settings.get_vote_channel()
-            await channel.send(f":star: Het begint! Het doet mij deugd u te melden dat er nog {startminutes} minuten "
-                               f"over zijn!")
+            await channel.send(
+                _(
+                    ":star: Het begint! Het doet mij deugd u te melden dat er nog %i minuten over zijn!"
+                )
+                % startminutes
+            )
 
         elif command == "pause":
             if not self.timer or self.timer.done:
@@ -61,22 +72,31 @@ class TimerBot(commands.Cog):
 
         elif command == "continue":
             if self.timer and not self.timer.done:
-                await ctx.send(f"Timer is already running, either start a new one or pause it first")
+                await ctx.send(
+                    f"Timer is already running, either start a new one or pause it first"
+                )
             elif self.minutesleft > 0:
                 await ctx.send(f"Restarting timer at {self.minutesleft} minutes left")
                 self.set_timer()
             else:
-                await ctx.send(f"There was no running timer. Cowardly refusing to continue.")
+                await ctx.send(
+                    f"There was no running timer. Cowardly refusing to continue."
+                )
 
     @commands.Cog.listener()
     async def on_reminder(self):
         if self.minutesleft > 0:
             if self.minutesleft == 1:
-                yell = f"Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!"
+                yell = _(
+                    "Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!"
+                )
             else:
-                yell = f"Het doet mij deugd u te melden dat er nog {self.minutesleft} minuten over zijn!"
+                yell = (
+                    _("Het doet mij deugd u te melden dat er nog %d minuten over zijn!")
+                    % self.minutesleft
+                )
             self.set_timer()
         else:
             self.bot.dispatch("timer_done")
-            yell = f"**Hora est!** De tijd is op!"
+            yell = _("**Hora est!** De tijd is op!")
         self.bot.dispatch("yell", yell)

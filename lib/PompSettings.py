@@ -1,3 +1,5 @@
+import gettext
+import locale
 from configparser import ConfigParser
 
 import discord
@@ -16,6 +18,7 @@ class PompSettings:
         self.__vote_channel = None
         self.__voice_channel = None
         self.__guild = None
+        self.__locale_function = None
 
     def __get_property(self, setting, boolean=False):
         if self.config.has_option("PsychoPomp", setting):
@@ -36,7 +39,10 @@ class PompSettings:
                     self.__voice_channel = channel
                     break
             if not self.__voice_channel:
-                raise Exception("Could not find channel for channel name " + self.get_value("VOTING_CHANNEL"))
+                raise Exception(
+                    "Could not find channel for channel name "
+                    + self.get_value("VOTING_CHANNEL")
+                )
         return self.__voice_channel
 
     def get_vote_channel(self, ignore_cache=False):
@@ -46,7 +52,10 @@ class PompSettings:
                     self.__vote_channel = channel
                     break
             if not self.__vote_channel:
-                raise Exception("Could not find channel for channel name " + self.get_value("VOTING_CHANNEL"))
+                raise Exception(
+                    "Could not find channel for channel name "
+                    + self.get_value("VOTING_CHANNEL")
+                )
         return self.__vote_channel
 
     def get_guild(self, ignore_cache=False):
@@ -57,8 +66,10 @@ class PompSettings:
                     self.__guild = server
                     break
             if not self.__guild:
-                raise ValueError(f"Could not find the 'ACTIVE_SERVER' {current_selected} in the list of authorized "
-                                 f"servers")
+                raise ValueError(
+                    f"Could not find the 'ACTIVE_SERVER' {current_selected} in the list of authorized "
+                    f"servers"
+                )
         return self.__guild
 
     def get_flag(self, flag):
@@ -79,3 +90,15 @@ class PompSettings:
 
     def has_setting(self, setting):
         return self.config.has_option("PsychoPomp", setting)
+
+    def get_locale_function(self):
+        if not self.__locale_function:
+            bot_locale = self.get_value("locale")
+            if not bot_locale:
+                bot_locale = "nl_NL"
+            lang_translations = gettext.translation(
+                "psychopomp", localedir="locales", languages=[bot_locale]
+            )
+            lang_translations.install()
+            self.__locale_function = lang_translations.gettext
+        return self.__locale_function

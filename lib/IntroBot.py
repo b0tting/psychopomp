@@ -73,6 +73,7 @@ class IntroBot(commands.Cog):
             self.voice_client = await voice_chan.connect()
 
         if not self.voice_client.is_connected():
+            print("Connecting to voice channel " + self.channel_name)
             await self.voice_client.connect()
 
         return self.voice_client
@@ -89,7 +90,6 @@ class IntroBot(commands.Cog):
 
     @commands.Cog.listener()
     async def on_intro(self, mp3):
-        # replace this with the path to your audio file
         voice = await self.get_voice()
         if voice.is_paused():
             voice.stop()

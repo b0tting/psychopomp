@@ -1,0 +1,136 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2022-01-23 14:39+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp1252\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: .\lib\AdminBot.py:97
+msgid "Ik mag u melden dat stemmen vanaf heden is toegestaan"
+msgstr "I rejoice in the fact that voting is now allowed for all"
+
+#: .\lib\AdminBot.py:102
+msgid "Vanaf heden is het niet mogelijk om te stemmen"
+msgstr "I regret informing you of the fact that voting is no longer allowed"
+
+#: .\lib\PlayerMessageBot.py:45
+msgid "Het spijt mij, u heeft geen openstaande stem om te verwijderen"
+msgstr "I am so sorry, but you will need to vote first before dramatically retracting"
+
+#: .\lib\PlayerMessageBot.py:49
+msgid "Nee, het spijt mij, het is mij niet toegestaan uw stem weer te verwijderen"
+msgstr "No, I am sorry, I am barred from removing your current vote"
+
+#: .\lib\PlayerMessageBot.py:78
+msgid "Het spijt mij, maar stemmen in andere kanalen dan het stem kanaal is niet toegestaan"
+msgstr "I am sorry, please vote in what is considered the appropiate channel"
+
+#: .\lib\PlayerMessageBot.py:107
+msgid ""
+"Oh, hoogste aller machten, het spijt mij, ik herken de naam niet. Maar wellicht kunt u uw keuze duiden met een cijfer? Bijvoorbeeld 'ik stem 1'?\n"
+"%s "
+msgstr "Oh highest, oh divine, I do not recognize this name. Perhaps you could elaborate with a number, for example, 'I vote 1'?\n"
+
+#: .\lib\PlayerMessageBot.py:115
+msgid "Oh, hoogster aller machten, het spijt mij, ik herken de naam niet die u gebruikt. Vergeet u niet om uw stem vooraf te laten gaan door een @-teken? Bijvoorbeeld @Pavi? "
+msgstr "Oh highest, oh divine, I do not recognize this name. Please, perhaps I missed you prepending a @ in front of the name? For example, 'I vote @Pavi'?"
+
+#: .\lib\PlayerMessageBot.py:122
+msgid "Oh, hoogster aller machten, hoe gul u ook bent, ik herinner u graag dat u slecht op ��n persoon kunt stemmen"
+msgstr "Oh highest, oh divine, we all appreciate your generosity, but you can only vote on a single name"
+
+#: .\lib\PlayerMessageBot.py:132
+msgid "Het spijt mij. De machten hebben bepaald dat u niet op zichzelf kunt stemmen"
+msgstr "I am sorry. The forces that be decided you cannot vote for yourself"
+
+#: .\lib\PlayerMessageBot.py:137
+msgid "Oh nee, nee, alstublieft niet!"
+msgstr "Oh. No, please, no!"
+
+#: .\lib\PlayerMessageBot.py:141
+msgid "Het spijt mij, maar de almachtige heeft besloten dat er nu niet gestemd kan worden!"
+msgstr "I am sorry - but the highest and almight has decided you cannot vote at this moment"
+
+#: .\lib\PlayerMessageBot.py:148
+msgid "Ik kan uw stem niet aannemen, ik verzoek u vriendelijk om uw stemmen direct aan mij te sturen in een priv� bericht"
+msgstr "I cannot accept this vote here. Please send me a direct message with your vote."
+
+#: .\lib\PlayerMessageBot.py:156
+msgid "Ik kan uw stem niet priv� aannemen, ik verzoek u vriendelijk om uw stem openbaar te plaatsen"
+msgstr "I cannot accept this vote here. Please use the appropiate channel for public voting"
+
+#: .\lib\PlayerMessageBot.py:179
+msgid "*Op dit moment zijn er geen stemmen!*"
+msgstr "*At the moment of writing, no power has voted yet!*"
+
+#: .\lib\PlayerMessageBot.py:211
+msgid "Ik heb uw stem op uw verzoek verwijderd"
+msgstr "At your request I have removed your vote"
+
+#: .\lib\PlayerMessageBot.py:224
+msgid "Ik noteer uw stem op %s"
+msgstr "I have noted your vote for %s"
+
+#: .\lib\TimerBot.py:61
+msgid ":star: Het begint! Het doet mij deugd u te melden dat er nog %i minuten over zijn!"
+msgstr ":star: It begins! I rejoice in calling out that there are %i minutes left for voting!"
+
+#: .\lib\TimerBot.py:91
+msgid "Het einde is nabij! U heeft nog ��n minuut om u op uw stem te bezinnen!"
+msgstr "The end is nigh! You have but a single minute to reconcile with your voting choices!"
+
+#: .\lib\TimerBot.py:96
+msgid "Het doet mij deugd u te melden dat er nog %d minuten over zijn!"
+msgstr "I rejoice in calling that there are %d minutes left!"
+
+#: .\lib\TimerBot.py:102
+msgid "**Hora est!** De tijd is op!"
+msgstr "**Hore est!** It is time!"
+
+#: .\lib\votes.py:75
+msgid ""
+"**Ik presenteer u uw keuzes!**\n"
+msgstr "**I present you your votes!**\n"
+
+#: .\lib\votes.py:79 .\lib\votes.py:97
+msgid ""
+"**%s** heeft **%d** stemmen\n"
+msgstr "**%s** has **%d** votes\n"
+
+#: .\lib\votes.py:84 .\lib\votes.py:102
+msgid ""
+"**%s** heeft ��n stem\n"
+msgstr "**%s** has a single vote\n"
+
+#: .\lib\votes.py:86
+msgid "**Niemand heeft nog een stem uitgebracht**"
+msgstr "**No votes have been brought forth yet**"
+
+#: .\lib\votes.py:107
+msgid ""
+"**%s** heeft gestemd op *%s*\n"
+msgstr "**%s** voted for *%s*\n"
+
+#: .\lib\votes.py:113
+msgid ""
+"**%s** heeft niet gestemd\n"
+msgstr "**%s** not not vote\n"
+
+#: .\lib\votes.py:116
+msgid "Niemand heeft nog gestemd"
+msgstr "There are no votes as yet"
+
+#: .\psychopomp.py:37
+msgid "Hi %s, welkom op de kleine-goden discord server!"
+msgstr "Hi %s, welcome to the smallest of gods discord server!"
+

@@ -70,15 +70,18 @@ class Votes:
         # Neat trick!
         sorted_votes = dict(sorted(votes.items(), key=lambda item: item[1]))
         if sorted_votes:
-            returnstring = "**Ik presenteer u uw keuzes!**\n"
+            returnstring = _("**Ik presenteer u uw keuzes!**\n")
             returnstring += ">>> "
             for votee, votes in sorted_votes.items():
                 if votes > 1:
-                    returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
+                    returnstring += _("**%s** heeft **%d** stemmen\n") % (
+                        votee.display_name,
+                        votes,
+                    )
                 elif votes == 1:
-                    returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
+                    returnstring += _("**%s** heeft één stem\n") % votee.display_name
         else:
-            returnstring = "**Niemand heeft nog een stem uitgebracht**"
+            returnstring = _("**Niemand heeft nog een stem uitgebracht**")
         return returnstring
 
     # Format a votes dict of votee:number of votes into a readable list
@@ -89,16 +92,24 @@ class Votes:
             returnstring = ">>> "
             for votee, votes in sorted_votes.items():
                 if votes > 1:
-                    returnstring += f"**{votee.display_name}** heeft **{votes}** stemmen\n"
+                    returnstring += _("**%s** heeft **%d** stemmen\n") % (
+                        votee.display_name,
+                        votes,
+                    )
                 elif votes == 1:
-                    returnstring += f"**{votee.display_name}** heeft **{votes}** stem\n"
+                    returnstring += _("**%s** heeft één stem\n") % votee.display_name
             returnstring += f"\n"
             for voter, vote in votes_set.items():
                 votee = vote.get_last_votee()
                 if votee:
-                    returnstring += f"**{voter.display_name}** heeft gestemd op *{votee.display_name}*\n"
+                    returnstring += _("**%s** heeft gestemd op *%s*\n") % (
+                        voter.display_name,
+                        votee.display_name,
+                    )
                 else:
-                    returnstring += f"**{voter.display_name}** heeft niet gestemd\n"
+                    returnstring += (
+                        _("**%s** heeft niet gestemd\n") % voter.display_name
+                    )
         else:
-            returnstring = f"Niemand heeft nog gestemd"
+            returnstring = _("Niemand heeft nog gestemd")
         return returnstring

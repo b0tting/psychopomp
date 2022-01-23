@@ -52,7 +52,7 @@ An example game round:
 
 - Copy the example .env.example to .env and change the parameters
   - Find the token by opening https://discord.com/developers/, adding a new application, opening the Bot menu and generating a token (below the username). 
-  - Authorize the bot by opening the OAuth2 menu, dashing Bot and Administrator and opening the redirect URL
+  - Authorize the bot by opening the "URL Generator" in the OAuth2 menu, dashing application.commands, Bot and Administrator and opening the redirect URL. Select your discord server there. 
 - Put the FFMPEG executeable in a location and change the parameter in the .env file
 - Put some MP3s in the MP3 directory  
 - Start the psychopomp.py python script (or use the systemd file)
@@ -71,3 +71,10 @@ StandardOutput=append:/var/log/psychopomp.log
 StandardError=append:/var/log/psychopomp.log
 ```
 
+## Adding a locale
+This bot uses the Python gettext library. To regenerate the .pot file: 
+```
+python.exe 'C:\Program Files\Python38\Tools\i18n\pygettext.py' -n -d psychopomp .\lib .\psychopomp.py
+python 'C:\Program Files\Python38\Tools\i18n\msgfmt.py' -o .\locales\nl_NL\LC_MESSAGES\psychopomp.mo .\locales\nl_NL\LC_MESSAGES\psychopomp
+
+```
