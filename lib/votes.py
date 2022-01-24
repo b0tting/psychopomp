@@ -71,7 +71,7 @@ class Votes:
         sorted_votes = dict(sorted(votes.items(), key=lambda item: item[1]))
         if sorted_votes:
             returnstring = _("**Ik presenteer u uw keuzes!**\n")
-            returnstring += ">>> "
+            returnstring += "\n>>>\n"
             for votee, votes in sorted_votes.items():
                 if votes > 1:
                     returnstring += _("**%s** heeft **%d** stemmen\n") % (
