@@ -79,7 +79,7 @@ class Votes:
                         votes,
                     )
                 elif votes == 1:
-                    returnstring += _("**%s** heeft één stem\n") % votee.display_name
+                    returnstring += _("**%s** heeft 1 stem\n") % votee.display_name
         else:
             returnstring = _("**Niemand heeft nog een stem uitgebracht**")
         return returnstring
@@ -97,7 +97,7 @@ class Votes:
                         votes,
                     )
                 elif votes == 1:
-                    returnstring += _("**%s** heeft één stem\n") % votee.display_name
+                    returnstring += _("**%s** heeft 1 stem\n") % votee.display_name
             returnstring += f"\n"
             for voter, vote in votes_set.items():
                 votee = vote.get_last_votee()

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-01-23 14:39+0100\n"
+"POT-Creation-Date: 2022-01-24 21:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,122 +15,122 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: .\lib\AdminBot.py:97
+#: .\lib\AdminBot.py:96
 msgid "Ik mag u melden dat stemmen vanaf heden is toegestaan"
 msgstr ""
 
-#: .\lib\AdminBot.py:102
+#: .\lib\AdminBot.py:101
 msgid "Vanaf heden is het niet mogelijk om te stemmen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:45
+#: .\lib\PlayerMessageBot.py:44
 msgid "Het spijt mij, u heeft geen openstaande stem om te verwijderen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:49
+#: .\lib\PlayerMessageBot.py:48
 msgid "Nee, het spijt mij, het is mij niet toegestaan uw stem weer te verwijderen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:78
+#: .\lib\PlayerMessageBot.py:77
 msgid "Het spijt mij, maar stemmen in andere kanalen dan het stem kanaal is niet toegestaan"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:107
+#: .\lib\PlayerMessageBot.py:106
 msgid ""
 "Oh, hoogste aller machten, het spijt mij, ik herken de naam niet. Maar wellicht kunt u uw keuze duiden met een cijfer? Bijvoorbeeld 'ik stem 1'?\n"
 "%s "
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:115
+#: .\lib\PlayerMessageBot.py:114
 msgid "Oh, hoogster aller machten, het spijt mij, ik herken de naam niet die u gebruikt. Vergeet u niet om uw stem vooraf te laten gaan door een @-teken? Bijvoorbeeld @Pavi? "
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:122
-msgid "Oh, hoogster aller machten, hoe gul u ook bent, ik herinner u graag dat u slecht op één persoon kunt stemmen"
+#: .\lib\PlayerMessageBot.py:121
+msgid "Oh, hoogster aller machten, hoe gul u ook bent, ik herinner u graag dat u slecht op een enkel persoon kunt stemmen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:132
+#: .\lib\PlayerMessageBot.py:131
 msgid "Het spijt mij. De machten hebben bepaald dat u niet op zichzelf kunt stemmen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:137
+#: .\lib\PlayerMessageBot.py:136
 msgid "Oh nee, nee, alstublieft niet!"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:141
+#: .\lib\PlayerMessageBot.py:140
 msgid "Het spijt mij, maar de almachtige heeft besloten dat er nu niet gestemd kan worden!"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:148
-msgid "Ik kan uw stem niet aannemen, ik verzoek u vriendelijk om uw stemmen direct aan mij te sturen in een privé bericht"
+#: .\lib\PlayerMessageBot.py:147
+msgid "Ik kan uw stem niet aannemen, ik verzoek u vriendelijk om uw stemmen direct aan mij te sturen in een persoonlijk bericht"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:156
-msgid "Ik kan uw stem niet privé aannemen, ik verzoek u vriendelijk om uw stem openbaar te plaatsen"
+#: .\lib\PlayerMessageBot.py:155
+msgid "Ik kan uw stem niet in het geniep aannemen, ik verzoek u vriendelijk om uw stem openbaar te plaatsen"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:179
+#: .\lib\PlayerMessageBot.py:178
 msgid "*Op dit moment zijn er geen stemmen!*"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:211
+#: .\lib\PlayerMessageBot.py:210
 msgid "Ik heb uw stem op uw verzoek verwijderd"
 msgstr ""
 
-#: .\lib\PlayerMessageBot.py:224
+#: .\lib\PlayerMessageBot.py:223
 msgid "Ik noteer uw stem op %s"
 msgstr ""
 
-#: .\lib\TimerBot.py:61
+#: .\lib\TimerBot.py:60
 msgid ":star: Het begint! Het doet mij deugd u te melden dat er nog %i minuten over zijn!"
 msgstr ""
 
-#: .\lib\TimerBot.py:91
-msgid "Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!"
+#: .\lib\TimerBot.py:90
+msgid "Het einde is nabij! U heeft nog 1 minuut om u op uw stem te bezinnen!"
 msgstr ""
 
-#: .\lib\TimerBot.py:96
+#: .\lib\TimerBot.py:95
 msgid "Het doet mij deugd u te melden dat er nog %d minuten over zijn!"
 msgstr ""
 
-#: .\lib\TimerBot.py:102
+#: .\lib\TimerBot.py:101
 msgid "**Hora est!** De tijd is op!"
 msgstr ""
 
-#: .\lib\votes.py:75
+#: .\lib\votes.py:73
 msgid ""
 "**Ik presenteer u uw keuzes!**\n"
 msgstr ""
 
-#: .\lib\votes.py:79 .\lib\votes.py:97
+#: .\lib\votes.py:77 .\lib\votes.py:95
 msgid ""
 "**%s** heeft **%d** stemmen\n"
 msgstr ""
 
-#: .\lib\votes.py:84 .\lib\votes.py:102
+#: .\lib\votes.py:82 .\lib\votes.py:100
 msgid ""
-"**%s** heeft één stem\n"
+"**%s** heeft 1 stem\n"
 msgstr ""
 
-#: .\lib\votes.py:86
+#: .\lib\votes.py:84
 msgid "**Niemand heeft nog een stem uitgebracht**"
 msgstr ""
 
-#: .\lib\votes.py:107
+#: .\lib\votes.py:105
 msgid ""
 "**%s** heeft gestemd op *%s*\n"
 msgstr ""
 
-#: .\lib\votes.py:113
+#: .\lib\votes.py:111
 msgid ""
 "**%s** heeft niet gestemd\n"
 msgstr ""
 
-#: .\lib\votes.py:116
+#: .\lib\votes.py:114
 msgid "Niemand heeft nog gestemd"
 msgstr ""
 
-#: .\psychopomp.py:37
+#: .\psychopomp.py:42
 msgid "Hi %s, welkom op de kleine-goden discord server!"
 msgstr ""
 

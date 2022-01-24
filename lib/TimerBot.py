@@ -88,7 +88,7 @@ class TimerBot(commands.Cog):
         if self.minutesleft > 0:
             if self.minutesleft == 1:
                 yell = _(
-                    "Het einde is nabij! U heeft nog één minuut om u op uw stem te bezinnen!"
+                    "Het einde is nabij! U heeft nog 1 minuut om u op uw stem te bezinnen!"
                 )
             else:
                 yell = (

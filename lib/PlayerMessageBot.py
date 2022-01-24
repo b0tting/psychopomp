@@ -120,7 +120,7 @@ class MessageValidator:
             raise MessageValidationException(
                 _(
                     "Oh, hoogster aller machten, hoe gul u ook bent, ik herinner u graag dat u slecht op "
-                    "één persoon kunt stemmen"
+                    "een enkel persoon kunt stemmen"
                 )
             )
         else:
@@ -146,14 +146,14 @@ class MessageValidator:
             raise MessageValidationException(
                 _(
                     "Ik kan uw stem niet aannemen, ik verzoek u vriendelijk om uw stemmen direct aan mij te sturen in "
-                    "een privé bericht"
+                    "een persoonlijk bericht"
                 )
             )
 
         if not self.message.guild and not self.settings.get_flag("PRIVATE_VOTING"):
             raise MessageValidationException(
                 _(
-                    "Ik kan uw stem niet privé aannemen, ik verzoek u vriendelijk om uw stem openbaar te plaatsen"
+                    "Ik kan uw stem niet in het geniep aannemen, ik verzoek u vriendelijk om uw stem openbaar te plaatsen"
                 )
             )
 
@@ -220,7 +220,7 @@ class PlayerMessageBot(commands.Cog):
                 if type(votee) == discord.user.User:
                     votee = self.get_member_for_user(votee)
 
-                await message.reply(_("Ik noteer uw stem op %s") % {votee.display_name})
+                await message.reply(_("Ik noteer uw stem op %s") % votee.display_name)
                 self.votes.vote_for(voter, votee)
                 await self.publish_standings()
 
