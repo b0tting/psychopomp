@@ -8,13 +8,13 @@ from asyncio import sleep
 
 rpgmusicpath = r"./mp3/"
 
+
 class IntroBot(commands.Cog):
     def __init__(self, client, settings):
         self.bot = client
         self.settings = settings
         self.channel_name = None
         self.voice_client = None
-
 
     @commands.command()
     @commands.guild_only()
@@ -40,7 +40,7 @@ class IntroBot(commands.Cog):
             except IndexError:
                 pass
 
-             # Probably a song name then
+            # Probably a song name then
             if not mp3:
                 mp3 = commandparameter
                 if not mp3.endswith(".mp3"):
@@ -49,14 +49,18 @@ class IntroBot(commands.Cog):
             if mp3 not in songlist:
                 await ctx.send(f"Could not find an MP3 file named {mp3}")
             else:
-                await ctx.send(f"Now playing {mp3} on {self.settings.get_voice_channel()}")
+                await ctx.send(
+                    f"Now playing {mp3} on {self.settings.get_voice_channel()}"
+                )
                 self.bot.dispatch("intro", mp3)
         elif command == "pause":
-            introbot = self.bot.get_cog('IntroBot')
-            await ctx.send(f"Playing paused, use 'play' for another tune or 'resume' to continue playing")
+            introbot = self.bot.get_cog("IntroBot")
+            await ctx.send(
+                f"Playing paused, use 'play' for another tune or 'resume' to continue playing"
+            )
             await introbot.pause()
         elif command == "resume":
-            introbot = self.bot.get_cog('IntroBot')
+            introbot = self.bot.get_cog("IntroBot")
             await ctx.send(f"Playing resumed")
             await introbot.resume()
 
@@ -100,7 +104,4 @@ class IntroBot(commands.Cog):
         voice.source.volume = 0.8
         with audioread.audio_open(path) as f:
             # Start Playing
-            sleep(f.duration)
-
-
-
+            await sleep(f.duration)

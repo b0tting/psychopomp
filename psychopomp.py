@@ -1,3 +1,4 @@
+import asyncio
 import gettext
 
 from discord.ext.commands import Bot, CommandNotFound
@@ -14,7 +15,7 @@ from lib.votes import Votes
 
 
 # Setting up some globals
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.members = True
 bot = Bot(intents=intents, command_prefix="!")
 
@@ -51,10 +52,15 @@ async def on_command_error(ctx, error):
     raise error
 
 
-bot.add_cog(PlayerMessageBot(bot, votes, settings))
-bot.add_cog(AdminBot(bot, votes, settings))
-bot.add_cog(IntroBot(bot, settings))
-bot.add_cog(TimerBot(bot, votes, settings))
-bot.add_cog(YellBot(bot, votes, settings))
+async def main():
+    async with bot:
+        await bot.add_cog(PlayerMessageBot(bot, votes, settings))
+        await bot.add_cog(AdminBot(bot, votes, settings))
+        await bot.add_cog(IntroBot(bot, settings))
+        await bot.add_cog(TimerBot(bot, votes, settings))
+        await bot.add_cog(YellBot(bot, votes, settings))
 
-bot.run(settings.get_value("DISCORD_TOKEN"))
+        await bot.start(settings.get_value("DISCORD_TOKEN"))
+
+
+asyncio.run(main())
